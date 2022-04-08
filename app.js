@@ -1,22 +1,4 @@
 const SEARCH_BTN = document.querySelector('#search');
-SEARCH_BTN.addEventListener('keypress', async (evt) => {
-  if (evt.key === 'Enter') {
-    evt.preventDefault();
-    const { target } = evt;
-    const { value } = target;
-    const movies = await getMovies(value);
-    console.log(movies);
-    renderMovies(movies);
-  }
-});
-
-const getDiscoverMovies = async () => {
-  const res = await fetch(
-    'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c',
-  );
-  const { results } = await res.json();
-  return results;
-};
 
 const getMovies = async (query) => {
   const res = await fetch(
@@ -57,6 +39,24 @@ const renderMovies = (movies) => {
     </div>
    
   </div>`).join('');
+};
+
+SEARCH_BTN.addEventListener('keypress', async (evt) => {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    const { target } = evt;
+    const { value } = target;
+    const movies = await getMovies(value);
+    renderMovies(movies);
+  }
+});
+
+const getDiscoverMovies = async () => {
+  const res = await fetch(
+    'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c',
+  );
+  const { results } = await res.json();
+  return results;
 };
 
 const main = async () => {
