@@ -1,8 +1,11 @@
+const API_KEY = '3fd2be6f0c70a2a598f084ddfb75487c';
+const API_URL_ALL = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=${API_KEY}`;
+const API_URL_SEARCH = (query) => `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${API_KEY}`;
 const SEARCH_BTN = document.querySelector('#search');
 
 const getMovies = async (query) => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=3fd2be6f0c70a2a598f084ddfb75487c`,
+    API_URL_SEARCH(query),
   );
   const { results } = await res.json();
   return results;
@@ -53,7 +56,7 @@ SEARCH_BTN.addEventListener('keypress', async (evt) => {
 
 const getDiscoverMovies = async () => {
   const res = await fetch(
-    'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c',
+    API_URL_ALL,
   );
   const { results } = await res.json();
   return results;
