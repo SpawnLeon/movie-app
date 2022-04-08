@@ -1,6 +1,5 @@
 const SEARCH_BTN = document.querySelector('#search');
 SEARCH_BTN.addEventListener('keypress', async (evt) => {
-
   if (evt.key === 'Enter') {
     evt.preventDefault();
     const { target } = evt;
@@ -13,14 +12,16 @@ SEARCH_BTN.addEventListener('keypress', async (evt) => {
 
 const getDiscoverMovies = async () => {
   const res = await fetch(
-    'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c');
+    'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c',
+  );
   const { results } = await res.json();
   return results;
 };
 
 const getMovies = async (query) => {
   const res = await fetch(
-    `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=3fd2be6f0c70a2a598f084ddfb75487c`);
+    `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=3fd2be6f0c70a2a598f084ddfb75487c`,
+  );
   const { results } = await res.json();
   return results;
 };
@@ -38,15 +39,15 @@ const getRatingClass = (r) => {
 const renderMovies = (movies) => {
   const moviesWrapper = document.querySelector('.movies');
 
-  moviesWrapper.innerHTML = movies.map(movie => {
-    return `<div class="movie">
+  moviesWrapper.innerHTML = movies.map((movie) => `<div class="movie">
     <img src="https://image.tmdb.org/t/p/w1280${movie.poster_path}"
          alt="${movie.title}">
     <div class="movie__info">
     <div class="movie__header">
     <h3>${movie.title}</h3>
       <span class="movie__rating ${getRatingClass(
-      movie.vote_average)}">${movie.vote_average}</span>
+    movie.vote_average,
+  )}">${movie.vote_average}</span>
     </div>
       
       <div class="movie__detail">
@@ -55,9 +56,7 @@ const renderMovies = (movies) => {
       </div>
     </div>
    
-  </div>`;
-  }).join('');
-
+  </div>`).join('');
 };
 
 const main = async () => {
